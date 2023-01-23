@@ -1,0 +1,4 @@
+Write a Java method to compute the averageof three numbers.
+WriteamethodnamedisEventhatacceptsanintargument.Themethodshouldreturntrueiftheargumentiseven,orfalseotherwise.Alsowriteaprogramtotestyourmethod
+WriteaJavaprogramtocheckifanumberisapalindromeinJava?
+Write a Java method to compute the sum of the digits in an integer
