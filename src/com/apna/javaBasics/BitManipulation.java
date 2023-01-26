@@ -32,5 +32,6 @@ public class BitManipulation {
         System.out.println("enter any decimal number to convert it into binary :");
         myNum = sc.nextInt();
         System.out.println("Binary no for given decimal no : "+myNum+" is = "+b.decToBin(myNum));
+        sc.close();
     }
 }
