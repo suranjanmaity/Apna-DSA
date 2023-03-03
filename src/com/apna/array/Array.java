@@ -88,6 +88,106 @@ public class Array {
         }
         return array;
     }
+    /*
+     * to print all pairs of an array
+     */
+    public static void printPairs(int[] array){
+        int totalPairs = 0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i+1; j < array.length; j++) {
+                System.out.print("(" + array[i] +","+ array[j] + ")\t");
+                totalPairs++;
+            }
+            System.out.println();
+        }
+        System.out.println("Total pairs: " + totalPairs);
+    }
+    /*
+     * to print all sub arrays of an array
+     */
+    public static void printSubArray(int[] array){
+        int totalSubArrays = 0;
+        for (int i = 0; i < array.length; i++){
+            for (int j = i; j < array.length; j++) {
+                System.out.print("[");
+                for (int k = i; k <= j; k++) { // print
+                    System.out.print(" "+array[k]); // sub array
+                }
+                totalSubArrays++;
+                System.out.print(" ]\t");
+            }
+            System.out.println();
+        }
+        System.out.println("Total sub arrays: "+totalSubArrays);
+    }
+    /*
+     * to find sub array which has maximum sum of an array
+     * using brute force algorithm
+     */
+    public static void maxSubArraySum(int[] array){
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < array.length; i++){
+            for (int j = i; j < array.length; j++) {
+                currSum = 0;
+                for (int k = i; k <= j; k++) { // print
+                    // sub array sum
+                    currSum += array[k];
+                }
+                System.out.print(currSum+"\t");
+                if(currSum>maxSum){
+                    maxSum = currSum;
+                }
+            }
+        }
+        System.out.println("max sum of sub array: "+maxSum);
+    }
+    /*
+     * to find sub array which has maximum sum of an array
+     * using prefix sum algorithm
+     */
+    public static void maxSubArraySum_prifixSum(int[] array){
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        int[] prefix = new int[array.length];
+        prefix[0] = array[0];
+        for (int i = 1; i < prefix.length; i++) {
+            prefix[i] = prefix[i-1] + array[i];
+        }
+        for (int i = 0; i < array.length; i++){
+            for (int j = i; j < array.length; j++) {
+
+                currSum = i==0 ? prefix[j] : prefix[j] - prefix[i-1]; // using prefix values for current sum
+                
+                System.out.print(currSum+"\t");
+                if(currSum>maxSum){
+                    maxSum = currSum;
+                }
+            }
+        }
+        System.out.println("max sum of sub array: "+maxSum);
+    }
+    /*
+     * to find sub array which has maximum sum of an array
+     * using prefix sum algorithm
+     */
+    public static void maxSubArraySum_Kadane(int[] array){
+        int currSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+       for(int i = 0; i < array.length; i++){
+            currSum += array[i];
+            if(currSum < 0){
+                currSum =0;
+            }
+            maxSum = maxSum>currSum? maxSum:currSum;
+       }
+        System.out.println("max sum of sub array: "+maxSum);
+    }
+
+
+
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // int marks [] = {87,89,99};
@@ -97,7 +197,7 @@ public class Array {
         // array[1] =2;
         // array[2] =3;
         // System.out.println(array[0]+"\n"+array[1]+"\n"+array[2]);
-        int moreNumbers[] = {4,5,6,7,8,9,10,11,12};
+        int moreNumbers[] = {4,5,-6,7,8,-9,10,-11,12};
         // System.out.println(binarySearch(moreNumbers, 10));
         // String fruits[] = {"apple", "orange", "mango"};
         // System.out.println(marks[0]+"\n"+numbers[0]+"\n"+moreNumbers[0]+"\n"+fruits[0]);
@@ -111,30 +211,34 @@ public class Array {
         // System.out.println("percentage : "+percentage+"%");
         // System.out.println("array length : "+marks.length);
         // update(marks);
-        moreNumbers = reverseArray(moreNumbers);
-        for (int mark : moreNumbers) {
-            System.out.println(mark);
-        }
-        // ? what do you want to eat 
-        // String [] my_menu = {"samosa", "chole bhature", "icecream", "pizza", "pasta", "pav bhaji", "fries"};
-        String [] school_menu = {"lemon soda", "sprites","limca", "fries", "moong dal vada", "spring roll", "chilly potato", "dosa", "masala dosa", "gol gappe", "chowmein", "aaloo tikki", "kulfi", "ice cream", "mast ras malai", "gulab jamun", "chilli paneer", "chole bhature", "chole kulche", "naan", "mix veg", "shahi paneer", "rice", "pakoda", "pav bhaji", "salad", "water", "dal makhni"};
-        for (int i = 0; i <school_menu.length; i++) {
-            System.out.println(i+". "+school_menu[i]);
-        }
-        System.out.print("enter what you want : ");
-        String order_item = sc.nextLine();
-        int oreder_no = linearSearch(school_menu, order_item);
-        if (oreder_no==-1) {
-            System.out.println("that is not available.");
-        } else {
-            System.out.println("Your order number is : " + oreder_no);
-        }
-        System.out.println("Suggestion : "+getLargest(school_menu)+" and " + getSmallest(school_menu));
-        sc.close();
-    }
-    // public static void incrementArray(int marks[]) {
-    //     for (int i = 0; i < marks.length; i++) {
-    //         marks[i]++;
+    //     moreNumbers = reverseArray(moreNumbers);
+    //     for (int mark : moreNumbers) {
+    //         System.out.println(mark);
     //     }
-    // }
+    //     // ? what do you want to eat 
+    //     // String [] my_menu = {"samosa", "chole bhature", "icecream", "pizza", "pasta", "pav bhaji", "fries"};
+    //     String [] school_menu = {"lemon soda", "sprites","limca", "fries", "moong dal vada", "spring roll", "chilly potato", "dosa", "masala dosa", "gol gappe", "chowmein", "aaloo tikki", "kulfi", "ice cream", "mast ras malai", "gulab jamun", "chilli paneer", "chole bhature", "chole kulche", "naan", "mix veg", "shahi paneer", "rice", "pakoda", "pav bhaji", "salad", "water", "dal makhni"};
+    //     for (int i = 0; i <school_menu.length; i++) {
+    //         System.out.println(i+". "+school_menu[i]);
+    //     }
+    //     System.out.print("enter what you want : ");
+    //     String order_item = sc.nextLine();
+    //     int oreder_no = linearSearch(school_menu, order_item);
+    //     if (oreder_no==-1) {
+    //         System.out.println("that is not available.");
+    //     } else {
+    //         System.out.println("Your order number is : " + oreder_no);
+    //     }
+    //     System.out.println("Suggestion : "+getLargest(school_menu)+" and " + getSmallest(school_menu));
+    // sc.close();
+        // printPairs(moreNumbers);
+        // printSubArray(moreNumbers);
+        // maxSubArraySum_prifixSum(moreNumbers);
+        maxSubArraySum_Kadane(moreNumbers);
+    }
+    public static void incrementArray(int marks[]) {
+        for (int i = 0; i < marks.length; i++) {
+            marks[i]++;
+        }
+    }
 }
